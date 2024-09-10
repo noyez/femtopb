@@ -143,6 +143,7 @@ pub struct Config {
     includes: Vec<path::PathBuf>,
     target: Option<path::PathBuf>,
     derive_defmt: bool,
+    derive_debug: bool,
 }
 
 #[derive(Default)]
@@ -162,6 +163,7 @@ impl Config {
             includes: Vec::new(),
             target: None,
             derive_defmt: false,
+            derive_debug: false,
         }
     }
 
@@ -182,6 +184,10 @@ impl Config {
 
     pub fn derive_defmt(&mut self, value: bool) -> &mut Self {
         self.derive_defmt = value;
+        self
+    }
+    pub fn derive_debug(&mut self, value: bool) -> &mut Self {
+        self.derive_debug = value;
         self
     }
 
@@ -219,6 +225,10 @@ impl Config {
         if self.derive_defmt {
             config.message_attribute(".", r#"#[derive(::defmt::Format)]"#);
             config.enum_attribute(".", r#"#[derive(::defmt::Format)]"#);
+        }
+        if self.derive_debug {
+            config.message_attribute(".", r#"#[derive(Debug)]"#);
+            config.enum_attribute(".", r#"#[derive(Debug)]"#);
         }
 
         let modules = config.generate(requests)?;

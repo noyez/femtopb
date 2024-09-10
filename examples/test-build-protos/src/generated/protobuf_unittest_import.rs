@@ -1,4 +1,3 @@
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::femtopb::Message)]
 pub struct PublicImportMessage<'a> {
     #[femtopb(int32, optional, tag = 1)]
@@ -6,7 +5,6 @@ pub struct PublicImportMessage<'a> {
     #[femtopb(unknown_fields)]
     pub unknown_fields: femtopb::UnknownFields<'a>,
 }
-#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, Copy, PartialEq, ::femtopb::Message)]
 pub struct ImportMessage<'a> {
     #[femtopb(int32, optional, tag = 1)]
